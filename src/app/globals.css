@@ -119,4 +119,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .gradasi-ponpes {
+    @apply bg-gradient-to-r from-white to-green-100;
+  }
+
+  .gradasi-ponpes-b {
+    @apply bg-gradient-to-b from-white to-green-100;
+  }
 }
