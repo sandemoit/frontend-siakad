@@ -19,7 +19,7 @@ api.interceptors.response.use(
                 return api(originalRequest) // retry original request
             } catch (refreshError) {
                 if (typeof window !== 'undefined') {
-                    window.location.href = '/login'
+                    window.location.href = '/signin'
                 }
                 return Promise.reject(refreshError)
             }

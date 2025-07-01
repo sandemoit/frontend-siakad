@@ -15,7 +15,7 @@ export function LogoutButton() {
 
             if (response.status === 200) {
                 // Redirect ke login setelah logout
-                router.push('/login')
+                router.push('/signin')
             } else {
                 console.error(response)
             }

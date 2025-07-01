@@ -1,26 +1,43 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { auth } from '@/auth'
 
-export function middleware(request: NextRequest) {
-    const token = request.cookies.get('access_token')?.value
-    const pathname = request.nextUrl.pathname
+// Define protected and public routes
+const protectedRoutes = ["/", "/admin", "/profile"]
+const authRoutes = ["/signin", "/signup"]
 
-    const isGuestOnly = ['/login', '/register'].includes(pathname)
-    const isProtected = !pathname.startsWith('/_next') && !pathname.startsWith('/api') && !isGuestOnly
+export default auth((req) => {
+    const { nextUrl } = req
+    const isLoggedIn = !!req.auth
 
-    if (isProtected && !token) {
-        const loginUrl = new URL('/login', request.url)
-        loginUrl.searchParams.set('redirect', pathname)
-        return NextResponse.redirect(loginUrl)
+    const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+    const isProtectedRoute = protectedRoutes.some(route =>
+        nextUrl.pathname === route || nextUrl.pathname.startsWith(route + '/')
+    )
+
+    // Redirect authenticated users away from auth pages
+    if (isAuthRoute) {
+        if (isLoggedIn) {
+            return NextResponse.redirect(new URL("/", nextUrl))
+        }
+        return NextResponse.next()
     }
 
-    if (isGuestOnly && token) {
-        return NextResponse.redirect(new URL('/', request.url))
+    // Redirect unauthenticated users to signin
+    if (isProtectedRoute && !isLoggedIn) {
+        const callbackUrl = nextUrl.pathname
+        const encodedCallbackUrl = encodeURIComponent(callbackUrl)
+        return NextResponse.redirect(
+            new URL(`/signin?callbackUrl=${encodedCallbackUrl}`, nextUrl)
+        )
     }
 
     return NextResponse.next()
-}
+})
 
 export const config = {
-    matcher: ['/((?!api|_next|favicon.ico).*)'], // semua public routes
+    // Match all paths except static files and API routes
+    matcher: [
+        '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    ]
 }

@@ -1,7 +1,23 @@
+'use client'
+
+import { useSession } from "next-auth/react"
+
 export default function Home() {
+  const { data: session } = useSession()
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Welcome to SIAKAD Admin</h1>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">
+          Selamat Datang di SIAKAD Admin
+        </h1>
+        {session?.user && (
+          <p className="text-gray-600 mt-1">
+            Halo, <span className="font-semibold">{session.user.email}</span> -
+            Role: <span className="font-semibold capitalize">{session.user.role}</span>
+          </p>
+        )}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {/* Stats Cards */}
