@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import axios from "axios"
 
 import type { JWT } from "next-auth/jwt";
+import api from "./lib/axios";
 
 // Extend NextAuth types
 declare module "next-auth" {
@@ -49,8 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         try {
-          const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
+          const response = await api.post("/auth/login",
             {
               email: credentials.email,
               password: credentials.password
@@ -114,7 +114,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   session: {
-    strategy: "jwt",
+    strategy: process.env.NEXT_SESSION_STRATEGY ? "jwt" : "database",
     maxAge: 24 * 60 * 60, // 24 hours
   },
 

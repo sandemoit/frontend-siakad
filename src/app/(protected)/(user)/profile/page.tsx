@@ -57,7 +57,7 @@ export default function ProfilePage() {
                 {/* Main Profile Card */}
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     {/* Header Section with Gradient */}
-                    <div className="bg-gradient-to-r from-blue-600 to-green-600 p-8 text-white relative">
+                    <div className="bg-gradient-to-r from-green-600 to-green-600 p-8 text-white relative">
                         <div className="absolute top-4 right-4">
                             {!isEditing ? (
                                 <Button
@@ -99,14 +99,14 @@ export default function ProfilePage() {
                                     <User className="w-12 h-12 text-white" />
                                 </div>
                                 {isEditing && (
-                                    <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+                                    <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
                                         <Camera className="w-4 h-4 text-white" />
                                     </button>
                                 )}
                             </div>
                             <div>
                                 <h2 className="text-2xl font-bold mb-1">{userData.name}</h2>
-                                <p className="text-blue-100 flex items-center gap-2">
+                                <p className="text-green-100 flex items-center gap-2">
                                     <Mail className="w-4 h-4" />
                                     {userData.email}
                                 </p>
@@ -130,7 +130,7 @@ export default function ProfilePage() {
                                         value={userData.name}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        className="h-12 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-50"
+                                        className="h-12 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-green-500 disabled:bg-gray-50"
                                         placeholder="Masukkan nama lengkap Anda"
                                     />
                                 </div>
@@ -147,7 +147,7 @@ export default function ProfilePage() {
                                         value={userData.email}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        className="h-12 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-50"
+                                        className="h-12 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-green-500 disabled:bg-gray-50"
                                         placeholder="Masukkan alamat email Anda"
                                     />
                                 </div>
@@ -173,7 +173,7 @@ export default function ProfilePage() {
                                 <div className="flex gap-3 pt-4 md:hidden">
                                     <Button
                                         onClick={handleSubmit}
-                                        className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white rounded-xl"
+                                        className="flex-1 h-12 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-700 hover:to-green-700 text-white rounded-xl"
                                     >
                                         <Save className="w-4 h-4 mr-2" />
                                         Simpan Perubahan
@@ -198,7 +198,7 @@ export default function ProfilePage() {
                     <div className="space-y-4">
                         <Button
                             variant="outline"
-                            className="w-full md:w-auto h-12 border-2 border-blue-200 text-blue-600 hover:bg-blue-50 rounded-xl"
+                            className="w-full md:w-auto h-12 border-2 border-green-200 text-green-600 hover:bg-green-50 rounded-xl"
                         >
                             Ganti Kata Sandi
                         </Button>
